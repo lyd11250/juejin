@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hex.mapper.ArticleMapper">
+    <resultMap id="Article" type="com.hex.pojo.Article">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <id column="title" jdbcType="VARCHAR" property="title"/>
+        <id column="author" jdbcType="VARCHAR" property="author"/>
+        <id column="date" jdbcType="VARCHAR" property="date"/>
+        <id column="content" jdbcType="VARCHAR" property="content"/>
+        <id column="click" jdbcType="INTEGER" property="click"/>
+        <id column="like" jdbcType="INTEGER" property="like"/>
+        <id column="comment" jdbcType="INTEGER" property="comment"/>
+    </resultMap>
+    <select id="listArticles" resultMap="Article">
+        select * from juejinDB
+    </select>
+
+
+</mapper>
