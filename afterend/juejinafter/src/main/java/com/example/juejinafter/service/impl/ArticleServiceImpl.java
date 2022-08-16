@@ -17,7 +17,22 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> listArticles(int category, int page, int size, int sort) {
-        return articleMapper.listArticles();
+        /**
+         * sort 0默认 1最新 2最热
+         *size 每页展示的个数
+         * page 页码
+         * category 0综合 1后端 2前端 3Android 4IOS 5人工智能 6开发工具 7代码人生
+         *
+         */
+        page = (page-1)*size;
+        if(sort == 0){
+            return articleMapper.listArticles(page,size,category);
+        }else if(sort ==1){
+            return articleMapper.listArticlesLast(page,size,category);
+        }else if(sort ==2){
+            return articleMapper.listArticlesFire(page,size,category);
+        }
+        return null;
     }
 
     @Override

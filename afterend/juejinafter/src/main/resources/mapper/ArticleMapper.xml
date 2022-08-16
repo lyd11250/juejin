@@ -12,16 +12,24 @@
         <id column="like" jdbcType="INTEGER" property="like"/>
         <id column="comment" jdbcType="INTEGER" property="comment"/>
     </resultMap>
-    <select id="listArticles" resultMap="Article">
-        select * from list
+    <select id="listArticles" resultType="com.example.juejinafter.pojo.List">
+        select * from list LIMIT #{page},#{size}
     </select>
 
-    <select id="listRelate" resultMap="Article">
+    <select id="listRelate" resultType="com.example.juejinafter.pojo.List">
         select * from list
     </select>
 
     <select id="findArticleById" resultMap="Article">
         select * from article where id = #{id}
+    </select>
+
+    <select id="listArticlesLast" resultType="com.example.juejinafter.pojo.List">
+        select * from list where category=#{category}  order by date desc  LIMIT #{page},#{size}
+    </select>
+
+    <select id="listArticlesFire" resultType="com.example.juejinafter.pojo.List">
+        select * from list where category=#{category}  order by click desc  LIMIT #{page},#{size}
     </select>
 
 </mapper>
