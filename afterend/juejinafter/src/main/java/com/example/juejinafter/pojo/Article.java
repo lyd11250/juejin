@@ -5,16 +5,12 @@ import lombok.Data;
 @Data
 public class Article {
     private Integer id;
-    private  Integer bid;
     private String title;
-    private String autor;
-    private String publishTime;
-    private Integer readNumber;
-
-    private String contentText;
-
-
-    private String imageurl;
-    private String articleTag;
-    private String categoryName;
+    private String author;
+    private String authorHead;
+    private String date;
+    private String content;
+    private  Integer click;
+    private  Integer like;
+    private  Integer comment;
 }

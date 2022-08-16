@@ -9,4 +9,7 @@ import java.util.List;
 public interface ArticleMapper {
     List<Article> listArticles();
 
+    Article findArticleById(String id);
+
+    List<Article> listRelate(String id, int page, int size);
 }

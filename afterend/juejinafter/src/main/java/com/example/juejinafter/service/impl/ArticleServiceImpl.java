@@ -16,7 +16,17 @@ public class ArticleServiceImpl implements ArticleService {
 
 
     @Override
-    public List<Article> listArticles() {
-        return null;
+    public List<Article> listArticles(int category, int page, int size, int sort) {
+        return articleMapper.listArticles();
+    }
+
+    @Override
+    public Article findArticleById(String id) {
+        return articleMapper.findArticleById(id);
+    }
+
+    @Override
+    public List<Article> listRelate(String id, int page, int size) {
+        return articleMapper.listRelate(id,page,size);
     }
 }
