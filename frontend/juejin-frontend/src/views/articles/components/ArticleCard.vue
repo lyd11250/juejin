@@ -5,14 +5,16 @@
             id: article.id
         }
     }">
-        <div class="article-card-left">
+        <div class="article-card-left" :style="{
+            height: (article.abstract ? 150 : 80) + 'px'
+        }">
             <div class="author-and-date">
                 <span class="author">{{ article.author }}</span>
                 <el-divider direction="vertical" />
                 <span class="date">{{ relative(article.date) }}</span>
             </div>
             <div class="title">{{ article.title }}</div>
-            <div class="abstract">{{ article.abstract }}</div>
+            <div class="abstract" v-if="article.abstract">{{ article.abstract }}</div>
             <div class="data">
                 <span class="click">
                     <el-icon>
@@ -34,7 +36,7 @@
                 </span>
             </div>
         </div>
-        <div class="article-card-right">
+        <div class="article-card-right" v-if="article.pic">
             <img :src="article.pic">
         </div>
 
@@ -65,7 +67,6 @@ defineProps<Props>()
     }
 
     &-left {
-        height: 150px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;

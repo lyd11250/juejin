@@ -76,15 +76,13 @@ const handleScroll = () => {
     // 滚动条总高度
     var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
     // 滚动到底部时加载列表
-    console.log(scrollTop, clientHeight, scrollHeight);
-
     if (scrollTop + clientHeight >= scrollHeight - 200) {
         getArticles()
     }
 }
 
 const debounced = new Debounced()
-const debouncedUse: Function = debounced.use(handleScroll, 500)
+const debouncedUse: Function = debounced.use(handleScroll, 500, true)
 const func = (...args: any) => {
     debouncedUse(...args)
 }
