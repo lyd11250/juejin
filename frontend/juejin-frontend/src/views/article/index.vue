@@ -71,7 +71,6 @@ const handleAnchorClick = (index: number) => {
 }
 
 function scrollListener() {
-    console.log(window.scrollY);
 
     catalog.forEach(c => {
         if (c.offsetTop <= window.scrollY + 70) {
