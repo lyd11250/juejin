@@ -10,7 +10,9 @@ marked.setOptions({
     sanitize: false,
     highlight: (code, lang) => hljs.highlight(code, { language: lang }).value
 })
-
 export default (html: string) => {
-    return marked(html)
+    let htmlStr = marked(html)
+
+    // 为所有pre标签添加hljs类名，使其拥有背景色
+    return htmlStr.replaceAll('<pre', "<pre class=\"hljs\"")
 }
