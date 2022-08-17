@@ -1,6 +1,10 @@
 <template>
     <CategoryHeader :categories="categories" pageName="articles" />
     <div class="article-list">
+        <div class="sort">
+            <router-link class="sort-item" v-for="s in sorts" :key="s.index" :to="{ query: { sort: s.index } }"
+                :class="{ active: currentSort == s.index }" @click="currentSort = s.index">{{ s.title }}</router-link>
+        </div>
         <div v-for="a in articles" :key="a.id">
             <ArticleCard :article="a" />
         </div>
@@ -34,16 +38,23 @@ const categories = [
     { category: 'ide', title: '开发工具' },
     { category: 'career', title: '代码人生' },
 ]
+const sorts = [
+    { index: 0, title: '推荐' },
+    { index: 1, title: '最新' },
+    { index: 2, title: '最热' },
+]
 const route = useRoute()
 const articles: any = reactive([])
 const currentPage = ref(0)
 const pageSize = 10;
+const currentSort = ref(0)
 const getArticles = () => {
     axios.get('/articles/list', {
         params: {
             category: route.params.category,
             page: currentPage.value + 1,
             size: pageSize,
+            sort: currentSort.value
         }
     }).then(res => {
         if (res.data.msg === 'success') {
@@ -63,9 +74,23 @@ watch(
             articles.splice(0, articles.length)
             // 重置当前页为0
             currentPage.value = 0
+            // 重置排序规则为0
+            currentSort.value = 0
             // 重新获取文章列表
             getArticles()
         }
+    })
+watch(
+    // 当排序规则发生变化时
+    () => currentSort.value,
+    () => {
+        // 清空原数组
+        articles.splice(0, articles.length)
+        // 重置当前页为0
+        currentPage.value = 0
+        // 重新获取文章列表
+        getArticles()
+
     })
 
 const handleScroll = () => {
@@ -102,6 +127,24 @@ onUnmounted(() => {
     margin: 20px auto;
     border-radius: 10px;
     overflow: hidden;
+
+    .sort {
+        background-color: white;
+        border-bottom: 1px solid #f1f1f1;
+
+        &-item {
+            text-align: center;
+            height: 45px;
+            line-height: 45px;
+            text-decoration: none;
+            color: black;
+            margin-left: 20px;
+
+            &.active {
+                color: #1e80ff;
+            }
+        }
+    }
 
     .skeleton {
         width: 100%;
