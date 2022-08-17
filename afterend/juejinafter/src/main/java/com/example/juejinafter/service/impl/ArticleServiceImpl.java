@@ -42,6 +42,10 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> listRelate(String id, int page, int size) {
+        /**
+         * 先搜出uuid对应的category
+         * 根据category推类似文章
+         */
         return articleMapper.listRelate(id,page,size);
     }
 }

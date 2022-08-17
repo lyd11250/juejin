@@ -3,8 +3,10 @@ package com.example.juejinafter.mapper;
 
 
 import com.example.juejinafter.pojo.Article;
+import com.example.juejinafter.pojo.ArticleList;
 
 import java.util.List;
+
 
 public interface ArticleMapper {
     List<Article> listArticles(int page, int size, int category);
@@ -16,4 +18,6 @@ public interface ArticleMapper {
     List<Article> listArticlesLast(int page, int size, int category);
 
     List<Article> listArticlesFire(int page, int size, int category);
+
+    void insertList(ArticleList list);
 }
