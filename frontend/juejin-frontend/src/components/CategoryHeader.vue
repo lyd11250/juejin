@@ -30,9 +30,6 @@ defineProps<Props>()
 <style scoped lang="less">
 #category-header-box {
     position: relative;
-    top: 0;
-    left: 0;
-    right: 0;
     height: 45px;
 
     #category-header {
