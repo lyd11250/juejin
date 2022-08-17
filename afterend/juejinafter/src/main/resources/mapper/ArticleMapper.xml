@@ -21,7 +21,7 @@
     </select>
 
     <select id="findArticleById" resultMap="Article">
-        select * from article where uuid = #{id}
+        select * from list where uuid = #{id}
     </select>
 
     <select id="listArticlesLast" resultType="com.example.juejinafter.pojo.ArticleList">
@@ -32,7 +32,7 @@
         select * from list where category=#{category}  order by click desc  LIMIT #{page},#{size}
     </select>
     <insert id="insertList">
-        INSERT INTO list ( `title`, `author`, `date`, `abstract`, `pic`, `click`, `like`, `comment`, `category`, `uuid`) VALUES ( #{title}, #{author}, #{date}, #{abstractStr}, #{pic}, #{click}, #{like}, #{comment}, #{category}, #{uuid});
+        INSERT INTO list ( `title`, `author`, `date`, `abstract`, `pic`, `click`, `like`, `comment`, `category`, `uuid`, `content`,`authorHead`) VALUES ( #{title}, #{author}, #{date}, #{abstractStr}, #{pic}, #{click}, #{like}, #{comment}, #{category}, #{uuid},#{content},#{authorHead});
     </insert>
 
 </mapper>

@@ -16,6 +16,25 @@ public class ArticleList {
     private Integer category;
     private String uuid;
 
+    private String authorHead;
+    private String content;
+
+    public String getAuthorHead() {
+        return authorHead;
+    }
+
+    public void setAuthorHead(String authorHead) {
+        this.authorHead = authorHead;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public Integer getId() {
         return id;
     }
