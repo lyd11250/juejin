@@ -1,5 +1,5 @@
 <template>
-    <div class="main-header-box">
+    <div class="main-header-box" v-show="showMainHeader">
         <div id="main-header">
             <div class="container">
                 <div class="container-left">
@@ -27,9 +27,9 @@
                             <el-button type="primary">创作者中心</el-button>
                             <template #dropdown>
                                 <el-dropdown-menu>
-                                    <el-dropdown-item>Action 1</el-dropdown-item>
-                                    <el-dropdown-item>Action 2</el-dropdown-item>
-                                    <el-dropdown-item>Action 3</el-dropdown-item>
+                                    <el-dropdown-item :icon="EditPen">写文章</el-dropdown-item>
+                                    <el-dropdown-item :icon="MagicStick">发沸点</el-dropdown-item>
+                                    <el-dropdown-item :icon="Paperclip">写代码</el-dropdown-item>
                                 </el-dropdown-menu>
                             </template>
                         </el-dropdown>
@@ -44,9 +44,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
 import { useRouter } from 'vue-router'
-import { Search } from '@element-plus/icons-vue';
+import { Search, EditPen, Paperclip, MagicStick } from '@element-plus/icons-vue';
 const routes = useRouter().getRoutes()
 
 type Page = {
@@ -54,6 +54,28 @@ type Page = {
     path: string
 }
 const pages: Array<Page> = reactive([]);
+const showMainHeader = ref(true)
+const currentScrollTop = ref(0)
+const throttle = ref(true)
+watch(
+    () => currentScrollTop.value,
+    (newVal, oldVal) => {
+        if (throttle.value) {
+            throttle.value = false
+            showMainHeader.value = newVal < 500 || oldVal > newVal
+            console.log(newVal, oldVal, showMainHeader.value);
+
+            setTimeout(() => {
+                throttle.value = true
+            }, 500);
+        }
+
+    }
+)
+const handleScroll = () => {
+    currentScrollTop.value = document.documentElement.scrollTop || document.body.scrollTop;
+
+}
 onMounted(() => {
     routes.forEach(route => {
         if (route.meta.showInMainHeader) {
@@ -63,6 +85,7 @@ onMounted(() => {
             })
         }
     })
+    window.addEventListener('scroll', handleScroll)
 })
 </script>
 
@@ -122,6 +145,10 @@ onMounted(() => {
 
             &-right {
                 display: flex;
+
+                .search-bar {
+                    width: 300px;
+                }
 
                 .creator-center {
                     margin: 0 20px;
