@@ -27,7 +27,41 @@ mock(
     }
 )
 mock(
-    /\/articles/,
+    /\/articles\/list/,
+    'get',
+    (options) => {
+        let url = options.url
+        let page = parseInt(url.split('page=')[1].split('&')[0])
+        let size = parseInt(url.split('size=')[1])
+        let list = []
+        for (let i = 0; i < size; i++) {
+            list.push(
+                {
+                    id: Random.uuid(),
+                    title: Random.ctitle(),
+                    author: Random.cname(),
+                    date: Random.date('yyyy-MM-dd'),
+                    abstract: Random.csentence(40, 50),
+                    pic: Random.boolean() ? Random.dataImage('200x150') : undefined,
+                    click: Random.integer(1, 9999),
+                    like: Random.integer(1, 9999),
+                    comment: Random.integer(1, 9999),
+                    category: Random.integer(0, 7)
+                }
+            )
+        }
+
+        return {
+            msg: 'success',
+            page,
+            size,
+            list
+        }
+
+    }
+)
+mock(
+    /\/articles\/relate/,
     'get',
     (options) => {
         let url = options.url
@@ -41,8 +75,6 @@ mock(
                     title: Random.ctitle(),
                     author: Random.cname(),
                     date: Random.date('yyyy-MM-dd'),
-                    abstract: Random.csentence(40, 50),
-                    pic: Random.boolean() ? Random.dataImage('200x150') : undefined,
                     click: Random.integer(1, 9999),
                     like: Random.integer(1, 9999),
                     comment: Random.integer(1, 9999),
@@ -51,7 +83,7 @@ mock(
         }
 
         return {
-            message: 'success',
+            msg: 'success',
             page,
             size,
             list
