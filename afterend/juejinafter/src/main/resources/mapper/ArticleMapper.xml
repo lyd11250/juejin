@@ -37,7 +37,7 @@
         <id column="content" jdbcType="VARCHAR" property="content"/>
     </resultMap>
     <select id="listArticles" resultMap="List">
-        select * from list LIMIT #{page},#{size}
+        select * from list where category = #{category}  LIMIT #{page},#{size}
     </select>
 
     <select id="listRelate" resultMap="Relate">
