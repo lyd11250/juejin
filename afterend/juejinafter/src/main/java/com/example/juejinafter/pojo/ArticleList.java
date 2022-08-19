@@ -13,7 +13,7 @@ public class ArticleList {
     private Integer like;
     private Integer comment;
     private Integer category;
-    private String uuid;
+    private String id;
 
 
     public String getTitle() {
@@ -88,11 +88,11 @@ public class ArticleList {
         this.category = category;
     }
 
-    public String getUuid() {
-        return uuid;
+    public String getId() {
+        return id;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setId(String id) {
+        this.id = id;
     }
 }

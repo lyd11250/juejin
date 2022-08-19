@@ -10,7 +10,7 @@
         <id column="click" jdbcType="INTEGER" property="click"/>
         <id column="like" jdbcType="INTEGER" property="like"/>
         <id column="comment" jdbcType="INTEGER" property="comment"/>
-        <id column="uuid" jdbcType="VARCHAR" property="uuid"/>
+        <id column="uuid" jdbcType="VARCHAR" property="id"/>
     </resultMap>
     <resultMap id="List" type="com.example.juejinafter.pojo.ArticleList">
         <id column="title" jdbcType="VARCHAR" property="title"/>
@@ -22,7 +22,7 @@
         <id column="like" jdbcType="INTEGER" property="like"/>
         <id column="comment" jdbcType="VARCHAR" property="comment"/>
         <id column="category" jdbcType="VARCHAR" property="category"/>
-        <id column="uuid" jdbcType="VARCHAR" property="uuid"/>
+        <id column="uuid" jdbcType="VARCHAR" property="id"/>
     </resultMap>
     <resultMap id="Relate" type="com.example.juejinafter.pojo.ArticleRelate">
         <id column="title" jdbcType="VARCHAR" property="title"/>
@@ -33,7 +33,7 @@
         <id column="like" jdbcType="INTEGER" property="like"/>
         <id column="comment" jdbcType="VARCHAR" property="comment"/>
         <id column="category" jdbcType="VARCHAR" property="category"/>
-        <id column="uuid" jdbcType="VARCHAR" property="uuid"/>
+        <id column="uuid" jdbcType="VARCHAR" property="id"/>
         <id column="content" jdbcType="VARCHAR" property="content"/>
     </resultMap>
     <select id="listArticles" resultMap="List">

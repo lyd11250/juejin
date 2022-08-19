@@ -12,5 +12,5 @@ public class Article {
     private  Integer click;
     private  Integer like;
     private  Integer comment;
-    private String uuid;
+    private String id;
 }
