@@ -2,7 +2,7 @@
     <div id="category-header-box">
         <div id="category-header">
             <div class="nav-list">
-                <router-link class="nav-item" active-class="active" v-for="c in categories" :key="c.category" :to="{
+                <router-link class="nav-list-item" active-class="active" v-for="c in categories" :key="c.category" :to="{
                     name: pageName,
                     params: {
                         category: c.category
@@ -24,47 +24,44 @@ type Props = {
     categories: Array<Category>
 }
 defineProps<Props>()
+
 </script>
 
 <style scoped lang="less">
 #category-header-box {
     position: relative;
-    top: 0;
-    left: 0;
-    right: 0;
     height: 45px;
-}
 
-#category-header {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 60px;
-    border-bottom: 1px solid #f1f1f1;
-    background-color: white;
-    z-index: 10;
-}
+    #category-header {
+        position: fixed;
+        left: 0;
+        right: 0;
+        border-bottom: 1px solid #f1f1f1;
+        background-color: white;
+        z-index: 10;
 
-.nav-list {
-    flex-shrink: 0;
-    width: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        .nav-list {
+            flex-shrink: 0;
+            width: 70%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-.nav-item {
-    text-align: center;
-    height: 45px;
-    line-height: 45px;
-    text-decoration: none;
-    color: black;
-    margin-left: 20px;
-    font-size: 14px;
-}
+            &-item {
+                text-align: center;
+                height: 45px;
+                line-height: 45px;
+                text-decoration: none;
+                color: black;
+                margin-left: 20px;
+                font-size: 14px;
 
-.active,
-.nav-item:hover {
-    color: #1e80ff;
+                &:hover,
+                &.active {
+                    color: #1e80ff;
+                }
+            }
+        }
+    }
 }
 </style>
