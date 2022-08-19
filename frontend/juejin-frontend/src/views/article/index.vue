@@ -42,7 +42,7 @@
 
 <script setup lang="ts">
 import axios from 'axios';
-import { nextTick, onMounted, onBeforeUnmount, reactive, ref } from 'vue';
+import { nextTick, onMounted, onBeforeUnmount, reactive, ref, watch } from 'vue';
 import { useRoute } from 'vue-router'
 import mark from '@/hooks/useMarked'
 import ArticleCard from '../articles/components/ArticleCard.vue';
@@ -64,6 +64,7 @@ const activeIndex = ref(-1)
 const articleRef = ref()
 const catalog: Catalog[] = reactive([])
 const createCatalog = () => {
+    catalog.splice(0, catalog.length)
     let titleNodes: HTMLElement[] = articleRef.value.querySelectorAll('h2,h3')
     titleNodes.forEach(n => {
         catalog.push({
@@ -71,6 +72,23 @@ const createCatalog = () => {
             label: n.id,
             offsetTop: n.offsetTop
         })
+    })
+}
+const getArticleDetail = () => {
+    axios.get('http://47.101.129.53:8090/articles/detail', {
+        params: {
+            id: route.params.id
+        }
+    }).then(res => {
+        if (res.data.code === 0) {
+            article.data = res.data.data
+            article.data.content = mark(article.data.content)
+            nextTick(() => {
+                createCatalog();
+            })
+        } else {
+            console.log(res.data.message);
+        }
     })
 }
 const handleCatalogScroll = () => {
@@ -89,15 +107,15 @@ const relates: any = reactive([])
 const currentPage = ref(0)
 const pageSize = 10
 const getRelates = () => {
-    axios.get('/articles/relate', {
+    axios.get('http://47.101.129.53:8090/articles/relate', {
         params: {
-            id: article.id,
+            id: article.data.id,
             page: currentPage.value + 1,
             size: pageSize
         }
     }).then(res => {
-        if (res.data.msg === 'success') {
-            relates.push(...res.data.list)
+        if (res.data.code === 0) {
+            relates.push(...res.data.data)
             currentPage.value += 1
         }
     })
@@ -117,22 +135,15 @@ const func = (...args: any) => {
     debouncedUse(...args)
 }
 
+watch(
+    () => route.params.id,
+    () => {
+        location.reload()
+    }
+)
+
 onMounted(() => {
-    axios.get('/articles/detail', {
-        params: {
-            id: article.data.id
-        }
-    }).then(res => {
-        if (res.data.code === 0) {
-            article.data = res.data.data
-            article.data.content = mark(article.data.content)
-            nextTick(() => {
-                createCatalog();
-            })
-        } else {
-            console.log(res.data.message);
-        }
-    })
+    getArticleDetail()
     getRelates()
     window.addEventListener('scroll', func)
     window.addEventListener('scroll', handleCatalogScroll)
@@ -192,6 +203,11 @@ onBeforeUnmount(() => {
                 }
             }
 
+            #article-content {
+                :deep(img) {
+                    max-width: 100%;
+                }
+            }
         }
 
         .relate-list {

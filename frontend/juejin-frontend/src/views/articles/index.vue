@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import axios from 'axios';
-import { onMounted, onUnmounted, reactive, ref, watch } from 'vue';
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import Debounced from '@/hooks/useDebounced'
 import ArticleCard from './components/ArticleCard.vue';
@@ -48,17 +48,24 @@ const articles: any = reactive([])
 const currentPage = ref(0)
 const pageSize = 10;
 const currentSort = ref(0)
+const currentCategory = computed(() => {
+    for (let i = 0; i < categories.length; i++) {
+        if (categories[i].category === route.params.category) {
+            return i
+        }
+    }
+})
 const getArticles = () => {
-    axios.get('/articles/list', {
+    axios.get('http://47.101.129.53:8090/articles/list', {
         params: {
-            category: route.params.category,
+            category: currentCategory.value,
             page: currentPage.value + 1,
             size: pageSize,
             sort: currentSort.value
         }
     }).then(res => {
-        if (res.data.msg === 'success') {
-            articles.push(...res.data.list)
+        if (res.data.code === 0) {
+            articles.push(...res.data.data)
             currentPage.value += 1
         }
 
@@ -66,10 +73,10 @@ const getArticles = () => {
 }
 
 watch(
-    () => route.params.category,
+    () => currentCategory.value,
     (newVal, oldVal) => {
         // 当文章分类发生变化时
-        if (newVal != oldVal) {
+        if (newVal != oldVal && route.params.category) {
             // 清空原数组
             articles.splice(0, articles.length)
             // 重置当前页为0

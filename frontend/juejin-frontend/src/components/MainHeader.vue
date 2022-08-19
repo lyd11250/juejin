@@ -63,8 +63,6 @@ watch(
         if (throttle.value) {
             throttle.value = false
             showMainHeader.value = newVal < 500 || oldVal > newVal
-            console.log(newVal, oldVal, showMainHeader.value);
-
             setTimeout(() => {
                 throttle.value = true
             }, 500);

@@ -6,7 +6,7 @@
         }
     }">
         <div class="article-card-left" :style="{
-            height: (article.abstract ? 150 : 80) + 'px'
+            height: (article.abstractStr ? 150 : 80) + 'px'
         }">
             <div class="author-and-date">
                 <span class="author">{{ article.author }}</span>
@@ -14,7 +14,7 @@
                 <span class="date">{{ relative(article.date) }}</span>
             </div>
             <div class="title">{{ article.title }}</div>
-            <div class="abstract" v-if="article.abstract">{{ article.abstract }}</div>
+            <div class="abstractStr" v-if="article.abstractStr">{{ article.abstractStr }}</div>
             <div class="data">
                 <span class="click">
                     <el-icon>
@@ -82,7 +82,7 @@ defineProps<Props>()
             font-size: 1.1rem;
         }
 
-        .abstract {
+        .abstractStr {
             text-overflow: ellipsis;
             overflow: hidden;
         }
