@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.juejinafter.mapper.ArticleMapper">
     <resultMap id="Article" type="com.example.juejinafter.pojo.Article">
-        <id column="id" jdbcType="INTEGER" property="id"/>
         <id column="title" jdbcType="VARCHAR" property="title"/>
         <id column="author" jdbcType="VARCHAR" property="author"/>
         <id column="authorHead" jdbcType="VARCHAR" property="authorHead"/>
@@ -11,12 +10,37 @@
         <id column="click" jdbcType="INTEGER" property="click"/>
         <id column="like" jdbcType="INTEGER" property="like"/>
         <id column="comment" jdbcType="INTEGER" property="comment"/>
+        <id column="uuid" jdbcType="VARCHAR" property="uuid"/>
     </resultMap>
-    <select id="listArticles" resultType="com.example.juejinafter.pojo.ArticleList">
+    <resultMap id="List" type="com.example.juejinafter.pojo.ArticleList">
+        <id column="title" jdbcType="VARCHAR" property="title"/>
+        <id column="author" jdbcType="VARCHAR" property="author"/>
+        <id column="date" jdbcType="VARCHAR" property="date"/>
+        <id column="abstract" jdbcType="VARCHAR" property="abstractStr"/>
+        <id column="pic" jdbcType="VARCHAR" property="pic"/>
+        <id column="click" jdbcType="INTEGER" property="click"/>
+        <id column="like" jdbcType="INTEGER" property="like"/>
+        <id column="comment" jdbcType="VARCHAR" property="comment"/>
+        <id column="category" jdbcType="VARCHAR" property="category"/>
+        <id column="uuid" jdbcType="VARCHAR" property="uuid"/>
+    </resultMap>
+    <resultMap id="Relate" type="com.example.juejinafter.pojo.ArticleRelate">
+        <id column="title" jdbcType="VARCHAR" property="title"/>
+        <id column="author" jdbcType="VARCHAR" property="author"/>
+        <id column="date" jdbcType="VARCHAR" property="date"/>
+        <id column="abstract" jdbcType="VARCHAR" property="abstractStr"/>
+        <id column="click" jdbcType="INTEGER" property="click"/>
+        <id column="like" jdbcType="INTEGER" property="like"/>
+        <id column="comment" jdbcType="VARCHAR" property="comment"/>
+        <id column="category" jdbcType="VARCHAR" property="category"/>
+        <id column="uuid" jdbcType="VARCHAR" property="uuid"/>
+        <id column="content" jdbcType="VARCHAR" property="content"/>
+    </resultMap>
+    <select id="listArticles" resultMap="List">
         select * from list LIMIT #{page},#{size}
     </select>
 
-    <select id="listRelate" resultType="com.example.juejinafter.pojo.ArticleList">
+    <select id="listRelate" resultMap="Relate">
         select * from list where category = (select category from list where uuid =#{id} ) LIMIT #{page},#{size}
     </select>
 
@@ -24,11 +48,11 @@
         select * from list where uuid = #{id}
     </select>
 
-    <select id="listArticlesLast" resultType="com.example.juejinafter.pojo.ArticleList">
+    <select id="listArticlesLast" resultMap="List">
         select * from list where category=#{category}  order by date desc  LIMIT #{page},#{size}
     </select>
 
-    <select id="listArticlesFire" resultType="com.example.juejinafter.pojo.ArticleList">
+    <select id="listArticlesFire" resultMap="List">
         select * from list where category=#{category}  order by click desc  LIMIT #{page},#{size}
     </select>
     <insert id="insertList">

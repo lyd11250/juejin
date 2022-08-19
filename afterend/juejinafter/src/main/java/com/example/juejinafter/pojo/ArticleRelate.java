@@ -3,18 +3,27 @@ package com.example.juejinafter.pojo;
 import lombok.Data;
 
 @Data
-public class ArticleList {
+public class ArticleRelate {
     private String title;
     private String author;
     private String date;
     private String abstractStr;
-    private String pic;
     private Integer click;
     private Integer like;
     private Integer comment;
     private Integer category;
     private String uuid;
+    private String content;
 
+
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public String getTitle() {
         return title;
@@ -46,14 +55,6 @@ public class ArticleList {
 
     public void setAbstractStr(String abstractStr) {
         this.abstractStr = abstractStr;
-    }
-
-    public String getPic() {
-        return pic;
-    }
-
-    public void setPic(String pic) {
-        this.pic = pic;
     }
 
     public Integer getClick() {

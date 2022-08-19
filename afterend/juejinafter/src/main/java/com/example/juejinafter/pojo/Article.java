@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class Article {
-    private Integer id;
     private String title;
     private String author;
     private String authorHead;
@@ -13,4 +12,5 @@ public class Article {
     private  Integer click;
     private  Integer like;
     private  Integer comment;
+    private String uuid;
 }
